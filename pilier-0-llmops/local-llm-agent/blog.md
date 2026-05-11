@@ -1,6 +1,6 @@
 # J'ai fait tourner un LLM local sur mon GPU en 30 minutes — et je vois tout ce qu'il fait
 
-> *Shadow Bytes Red Team · AngeVirus · Dakar, Mai 2026*
+> *Ngagne Demba Dia · AngeVirus · Master Sécurité des Systèmes Embarqués · UCAD · Dakar, Mai 2026*
 
 ---
 
@@ -100,7 +100,7 @@ Après ce seul appel, mon dashboard LangFuse montre :
 
 ## Pourquoi c'est important pour la sécurité
 
-Je fais partie de **Shadow Bytes Red Team**. Dans mon programme, le Pilier 1
+Dans mon programme de Master Sécurité des Systèmes Embarqués (UCAD), le Pilier 1
 consiste à *attaquer* des LLMs après avoir appris à les *construire*.
 
 Dans le Lab 1 PortSwigger que j'ai résolu (Excessive Agency — OWASP LLM08),
@@ -138,7 +138,7 @@ faire des A/B tests, et détecter le drift de réponse.
 ---
 
 *Code disponible sur [GitHub](https://github.com/Ngagne-Demba-Dia/AngeVirusLab-LLMOps)*
-*Shadow Bytes Red Team · UCAD · Dakar, Sénégal*
+*Ngagne Demba Dia · Master Sécurité des Systèmes Embarqués · UCAD · Dakar, Sénégal*
 
 ---
 *#LLMOps #LLaMA3 #Ollama #LangFuse #LangChain #OpenSource #ShadowBytes #UCAD #Dakar #Sénégal*

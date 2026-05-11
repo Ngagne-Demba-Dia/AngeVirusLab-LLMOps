@@ -2,7 +2,7 @@
 ## Mini-Papier Technique
 
 **Auteur :** AngeVirus — Ngagne Demba Dia
-**Organisation :** Shadow Bytes Red Team · UCAD · CCDOC · Dakar, Sénégal
+**Organisation :** Master Sécurité des Systèmes Embarqués · UCAD · CCDOC · Dakar, Sénégal
 **Date :** Mai 2026
 **Catégorie :** LLMOps · Observabilité · Systèmes IA
 
@@ -42,8 +42,8 @@ LLM local de manière à rendre son comportement en production entièrement obse
 
 ### 1.3 Contexte
 
-Ce travail s'inscrit dans le cadre du programme de spécialisation LLMSecOps de
-Shadow Bytes Red Team (UCAD, Dakar). Le Pilier 0 pose les fondations opérationnelles
+Ce travail s'inscrit dans le cadre d'une spécialisation LLMSecOps conduite à l'UCAD (Dakar)
+dans le cadre du Master Sécurité des Systèmes Embarqués. Le Pilier 0 pose les fondations opérationnelles
 qui seront attaquées en Pilier 1 (LLM Security offensive). Comprendre comment
 construire un pipeline LLM observable est un prérequis pour comprendre où il est vulnérable.
 
@@ -87,15 +87,18 @@ nativement dans LangChain. Une seule ligne de configuration instrumente l'ensemb
 du pipeline, y compris les appels d'outils (tool calls).
 
 ```python
-from langfuse.callback import CallbackHandler
+from dotenv import load_dotenv
+from langchain_ollama import OllamaLLM
+from langfuse.langchain import CallbackHandler
+from langfuse import Langfuse
 
-handler = CallbackHandler(
-    public_key=LANGFUSE_PUBLIC_KEY,
-    secret_key=LANGFUSE_SECRET_KEY,
-    host=LANGFUSE_HOST
-)
+load_dotenv()  # lit LANGFUSE_PUBLIC_KEY, LANGFUSE_SECRET_KEY, LANGFUSE_HOST depuis .env
 
-response = chain.invoke(query, config={"callbacks": [handler]})
+handler = CallbackHandler()  # pas de clés en dur — tout vient des variables d'environnement
+llm = OllamaLLM(model="llama3:8b")
+
+response = llm.invoke(query, config={"callbacks": [handler]})
+Langfuse().flush()  # s'assure que la trace est envoyée avant la fin du process
 ```
 
 Chaque exécution génère une **trace** structurée contenant :
@@ -110,34 +113,69 @@ Chaque exécution génère une **trace** structurée contenant :
 
 ## 3. Résultats
 
-### 3.1 Métriques collectées
+### 3.1 Phase 1 — LLM simple (LLaMA3:8b)
 
-*[À remplir après le lab — copier depuis le dashboard LangFuse]*
+Métriques issues du dashboard LangFuse (2026-05-11).
 
 | Métrique | Valeur observée |
 |---|---|
-| Latence moyenne | — ms |
-| Latence P95 | — ms |
-| Tokens input (moyenne) | — |
-| Tokens output (moyenne) | — |
-| Coût estimé / requête | — $ |
-| Nombre de traces totales | — |
+| Latence (warm, GPU) | 7.92 s |
+| Latence (cold start) | 22.68 s |
+| TTFT (Time To First Token) | 0.61 s |
+| Coût estimé / requête | $0.00 (inférence locale) |
+| Modèle tracé | llama3:8b · provider: ollama |
 
-### 3.2 Utilisation GPU
+> Screenshots : `docs/dashboard_traces.png` (vue liste) · `docs/trace_details.png` (trace détaillée)
 
+**Analyse :** Le cold start (22.68s) correspond au chargement des poids en VRAM.
+Une fois chargé, la latence warm tombe à 7.92s avec un TTFT de 0.61s — la génération
+démarre rapidement même si la réponse complète prend plusieurs secondes.
+
+### 3.2 Phase 2 — Agent avec 3 outils (LLaMA3.1:8b)
+
+L'agent est instrumenté via LangFuse `CallbackHandler`. Chaque trace contient
+des **spans imbriqués** : `AgentExecutor → ChatOllama → tool:<name>`.
+
+| Outil | Requête de test | Résultat | Tool call tracé |
+| --- | --- | --- | --- |
+| `calculator` | "1337 × 42 + 256 ?" | 56 410 ✅ | `calculator("1337 * 42 + 256")` |
+| `web_search` | "Qu'est-ce que LLMOps ?" | Contenu + synthèse ✅ | `web_search("LLMOps")` |
+| `execute_command` | "Utilisateur et répertoire courant ?" | `angevirus` · chemin complet ✅ | `execute_command("whoami && pwd")` |
+
+> Screenshots LangFuse :
+> `docs/agent_traces_list.png` — vue liste des 3 traces
+> `docs/agent_calculator_spans.png` — arbre de spans (tool: calculator)
+> `docs/agent_execute_command_spans.png` — arbre de spans (tool: execute_command) · illustration OWASP LLM08
+> `docs/agent_web_search_spans.png` — arbre de spans (tool: web_search)
+
+**Observation critique :** À `temperature=0.7` (défaut), LLaMA 3.1 produisait le JSON
+de l'appel outil en texte brut plutôt que de l'exécuter via le protocole function calling.
+À `temperature=0`, le comportement devient déterministe et les 3 outils s'exécutent
+correctement. Ce phénomène illustre un défi LLMOps réel : **la fiabilité du tool calling
+dépend des hyperparamètres du modèle**, pas seulement de l'architecture agent.
+
+> Note : `llama3:8b` (v3.0) ne supporte pas l'API tool calling d'Ollama — migration
+> vers `llama3.1:8b` requise pour les agents. Différence invisible dans le code, critique
+> en production.
+
+### 3.3 Utilisation GPU
+
+```text
+Matériel   : NVIDIA GeForce RTX (6 GB VRAM)
+Modèle     : LLaMA3.1:8b — quantization Q4_K_M
+VRAM       : ~5.8 GB occupés / 6.0 GB disponibles (97%)
+Runtime    : Ollama via CUDA 12.0 · WSL2 Ubuntu 22.04
 ```
-NVIDIA GeForce (6 GB VRAM)
-LLaMA3:8b (Q4_K_M) : ~5.8 GB occupés
-GPU Util pendant inférence : ~XX% (à mesurer)
-```
 
-### 3.3 Observations qualitatives
+### 3.4 Observations qualitatives
 
-*[À remplir après le lab]*
-
-- Qualité des réponses :
-- Comportement lors de questions hors domaine :
-- Comportement lors de tentatives d'injection :
+- **Multilingue** : sans instruction explicite de langue, LLaMA3 répond en espagnol
+  sur des requêtes courtes — la spécification de langue dans le system prompt est obligatoire.
+- **Visibilité complète** : LangFuse capture input/output exact, provider (`ollama`),
+  modèle (`llama3.1:8b`), métadonnées LangChain — zero overhead côté code métier.
+- **Excessive Agency détectée** : le tool `execute_command` avec guard whitelist montre
+  comment LangFuse rend visible chaque commande système soumise par le LLM —
+  connexion directe avec OWASP LLM08 (Pilier 1).
 
 ---
 
@@ -197,5 +235,5 @@ LLMOps n'est pas optionnel en production — c'est la fondation de toute sécuri
 
 ---
 
-*Shadow Bytes Red Team · UCAD · Dakar — AngeVirus 2026*
+*Ngagne Demba Dia · Master Sécurité des Systèmes Embarqués · UCAD · Dakar, 2026*
 *Activités réalisées sur environnements de lab autorisés.*

@@ -1,7 +1,7 @@
 # local-llm-agent
 
 > **Deploy a fully observable local LLM agent with LangFuse tracing**
-> Shadow Bytes · Pilier 0 · Week 3
+> Ngagne Demba Dia · Master Sécurité des Systèmes Embarqués · UCAD · Pilier 0 · Week 3
 
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://python.org)
 [![LangChain](https://img.shields.io/badge/LangChain-0.2-green.svg)](https://python.langchain.com)
@@ -17,8 +17,16 @@ This project deploys a **local LLM agent** (LLaMA3:8b via Ollama) with complete
 observability through LangFuse. Every LLM call is traced — latency, token usage,
 cost estimate, and tool calls are all visible in the dashboard.
 
+The agent is equipped with **3 tools** that demonstrate different observability scenarios:
+
+| Tool | Purpose | Security angle |
+| --- | --- | --- |
+| `calculator` | Math evaluation (safe) | Baseline — no risk |
+| `web_search` | Simulated knowledge retrieval | Information leakage |
+| `execute_command` | System command execution | **OWASP LLM08** — Excessive Agency |
+
 **Key question answered:** *How do you know what your LLM is doing in production
-if you can't see it?*
+if you can't see it — and how do you detect when it does something it shouldn't?*
 
 ---
 
@@ -59,12 +67,15 @@ if you can't see it?*
 | Metric | Value |
 |---|---|
 | Model | LLaMA3:8b (Q4_K_M) |
-| GPU VRAM used | ~5.8 GB / 6 GB |
-| Avg latency | — ms *(fill after lab)* |
-| Tokens/response | — *(fill after lab)* |
-| Traces captured | — *(fill after lab)* |
+| GPU VRAM used | 5816 MB / 6144 MB (94.7%) |
+| Latency — warm (GPU) | 7.92 s |
+| Latency — cold start | 22.68 s |
+| TTFT | 0.61 s |
+| Estimated cost / call | $0.00 (local) |
+| Traces captured | 2+ |
 
-> Screenshots: see [docs/](docs/)
+> Screenshots: [`docs/dashboard_traces.png`](docs/dashboard_traces.png) · [`docs/trace_details.png`](docs/trace_details.png)
+> Agent traces: [`docs/agent_traces_list.png`](docs/agent_traces_list.png) · [`docs/agent_calculator_spans.png`](docs/agent_calculator_spans.png) · [`docs/agent_execute_command_spans.png`](docs/agent_execute_command_spans.png)
 
 ---
 
@@ -122,7 +133,11 @@ local-llm-agent/
 
 ## Key Learnings
 
-- *To be filled after completing the lab*
+1. **LangFuse reads keys from env** — `CallbackHandler()` with no args is all you need; hardcoding keys in code is both insecure and unnecessary.
+2. **Cold start is real** — 22.68s first call vs 7.92s warm. TTFT (0.61s) stays fast once loaded.
+3. **6 GB VRAM is enough** — LLaMA3:8b Q4_K_M uses 5816 MB / 6144 MB. Tight but functional.
+4. **Language must be explicit** — without `"Réponds uniquement en français"`, LLaMA3 can respond in the wrong language based on lexical similarity.
+5. **Observability catches drift** — every input/output is traced. Reproducing a "weird response" goes from impossible to trivial.
 
 ---
 
@@ -135,4 +150,4 @@ local-llm-agent/
 
 ---
 
-*Shadow Bytes Red Team · UCAD · Dakar — AngeVirus 2026*
+*Ngagne Demba Dia · Master Sécurité des Systèmes Embarqués · UCAD · Dakar, 2026*

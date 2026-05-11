@@ -1,7 +1,7 @@
 # AngeVirusLab — LLMOps
 
-> **Shadow Bytes Red Team · UCAD · Dakar, Senegal**
-> *AngeVirus — Ngagne Demba Dia · CCDOC · LACGAA 2026*
+> **Ngagne Demba Dia · Master Sécurité des Systèmes Embarqués · UCAD · Dakar**
+> *AngeVirus · CCDOC · LACGAA 2026*
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://python.org)
@@ -60,7 +60,8 @@ OS   : WSL2 Ubuntu on Windows 11
 
 ## Context
 
-This work is part of the **Shadow Bytes Red Team** specialization program at UCAD (Dakar).
+This work is part of a **LLMSecOps specialization** conducted at UCAD (Dakar) as part of
+the Master Sécurité des Systèmes Embarqués program.
 The LLMOps pillar directly feeds into **LLM Security offensive research** (Pilier 1) —
 building the pipeline first means understanding exactly where it breaks under attack.
 
@@ -68,7 +69,7 @@ building the pipeline first means understanding exactly where it breaks under at
 
 ## Author
 
-**AngeVirus** — Ngagne Demba Dia
-Shadow Bytes Red Team · UCAD · CCDOC · Dakar, Sénégal
+**Ngagne Demba Dia** — AngeVirus
+Master Sécurité des Systèmes Embarqués · UCAD · CCDOC · Dakar, Sénégal
 
 [![GitHub](https://img.shields.io/badge/GitHub-Ngagne--Demba--Dia-black?logo=github)](https://github.com/Ngagne-Demba-Dia)
