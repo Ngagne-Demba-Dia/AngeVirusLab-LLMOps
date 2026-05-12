@@ -38,9 +38,9 @@ All projects run **100% open source, 0$ tooling** on a local GPU (NVIDIA + CUDA 
 ### Pilier 0 — LLMOps Foundations
 
 | # | Project | Description | Status |
-|---|---|---|---|
-| 01 | [local-llm-agent](pilier-0-llmops/local-llm-agent/) | Local LLM agent with full LangFuse tracing | 🔄 In progress |
-| 02 | [prompt-tracker](pilier-0-llmops/prompt-tracker/) | Prompt versioning + A/B testing | ⏳ Planned |
+| --- | --- | --- | --- |
+| 01 | [local-llm-agent](pilier-0-llmops/local-llm-agent/) | Local LLM agent (3 tools) with full LangFuse tracing | ✅ Done |
+| 02 | [prompt-tracker](pilier-0-llmops/prompt-tracker/) | Prompt versioning + A/B testing + hallucination detection | ✅ Done |
 | 03 | [llm-guardrails](pilier-0-llmops/llm-guardrails/) | NeMo Guardrails anti-injection rails | ⏳ Planned |
 | 04 | [rag-pipeline](pilier-0-llmops/rag-pipeline/) | Full RAG: LangChain + ChromaDB + RAGAS eval | ⏳ Planned |
 | 05 | [secure-rag](pilier-0-llmops/secure-rag/) | Final: RAG + guardrails + observability | ⏳ Planned |
