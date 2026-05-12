@@ -86,7 +86,19 @@ python nemo/demo.py
 
 ## Key Learnings
 
-- *To be filled after completing the lab*
+- Les guardrails custom (regex Python) sont plus fiables que NeMo pour un stack LLM local — zéro dépendance, comportement prévisible
+- La sécurité native d'un LLM (safety training) peut être contournée par jailbreak, persona override, context wipe — les guardrails constituent une couche indépendante
+- Les guardrails agissent sur les **patterns textuels**, pas sur l'intention — ils bloquent AVANT que le LLM soit appelé (zéro token consommé)
+- Defense in depth : safety training + guardrails + monitoring (LangFuse) = trois couches indépendantes
+
+## NeMo Guardrails — Limitation connue
+
+NeMo Guardrails utilise un LLM pour interpréter les règles Colang (semantic matching). Avec Ollama en local, deux problèmes bloquants ont été identifiés :
+
+1. **API OpenAI-compatible** (`http://localhost:11434/v1`) — NeMo envoie des requêtes au format OpenAI mais Ollama retourne `{'role': 'assistant', 'content': ''}` (contenu vide)
+2. **ChatOllama direct** (`llm=ChatOllama(...)`) — même avec le paramètre `llm=`, NeMo retourne des réponses vides car le matching sémantique Colang échoue silencieusement
+
+**Conclusion** : NeMo Guardrails est conçu pour fonctionner avec des LLMs cloud (OpenAI, Azure). Pour un stack 100% local avec Ollama, les guardrails custom Python sont l'alternative fiable.
 
 ---
 
