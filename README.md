@@ -86,18 +86,26 @@ OS  : WSL2 Ubuntu sur Windows 11 Pro
 
 ---
 
+## Pilier 1 — LLM Security Offensive
+
+Labs PortSwigger Web Security Academy — LLM Attacks (4 labs couverts) :
+
+| Lab | Niveau | Vulnérabilité |
+| --- | --- | --- |
+| Exploitation des API LLM avec autonomie excessive | APPRENTI | OWASP LLM08 — Excessive Agency |
+| Exploitation des vulnérabilités dans les API LLM | PRATICIEN | OS Command Injection via LLM |
+| Injection indirecte de prompt | PRATICIEN | Indirect Prompt Injection |
+| Exploitation d'agents IA — actions destructives | APPRENTI | AI Agent Manipulation |
+
+Axes couverts : Excessive Agency · OS Command Injection · Indirect Prompt Injection · AI Agent Exploitation
+
+---
+
 ## Contexte
 
 Ce Pilier 0 est la **fondation défensive** avant l'offensive.
 Comprendre comment un pipeline LLM fonctionne en détail permet d'identifier exactement
 où il est vulnérable — c'est l'objet du **Pilier 1 : LLM Security Offensive**.
-
-Axes identifiés pour le Pilier 1 :
-
-- Contournement des guardrails regex (unicode, langues mixtes, encodage)
-- RAG Poisoning (LLM10) — injection de documents dans ChromaDB
-- Extraction de données sensibles via requêtes RAG ciblées
-- Fuzzing des patterns de détection
 
 ---
 
