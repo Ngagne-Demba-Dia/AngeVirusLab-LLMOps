@@ -18,6 +18,7 @@ from langchain_chroma import Chroma
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
+from langfuse.langchain import CallbackHandler
 from langfuse import Langfuse
 
 load_dotenv()
@@ -121,7 +122,11 @@ class SecureRAGPipeline:
     def __init__(self):
         self.input_rail = InputRail()
         self.output_rail = OutputRail()
-        self.langfuse = Langfuse()
+        self.langfuse = Langfuse(
+            secret_key=os.getenv("LANGFUSE_SECRET_KEY"),
+            public_key=os.getenv("LANGFUSE_PUBLIC_KEY"),
+            host=os.getenv("LANGFUSE_BASE_URL", "https://cloud.langfuse.com"),
+        )
 
         embeddings = HuggingFaceEmbeddings(
             model_name=EMBEDDING_MODEL,
@@ -135,7 +140,6 @@ class SecureRAGPipeline:
         )
         self.retriever = vectorstore.as_retriever(search_kwargs={"k": TOP_K})
         llm = ChatOllama(model=OLLAMA_MODEL, base_url=OLLAMA_BASE_URL, temperature=0)
-        self.llm = llm
         self.rag_chain = (
             {"context": self.retriever | format_docs, "question": RunnablePassthrough()}
             | RAG_PROMPT
@@ -155,35 +159,17 @@ class SecureRAGPipeline:
                 "response": "Requete bloquee : tentative de manipulation detectee.",
             }
 
-        # Stage 2 — RAG + LLM avec LangFuse 4.x (tokens trackés manuellement)
+        # Stage 2 — RAG + LLM avec LangFuse
+        handler = CallbackHandler()
         docs = self.retriever.invoke(user_input)
         sources = [
             f"{Path(d.metadata.get('source','?')).name} p.{d.metadata.get('page','?')}"
             for d in docs
         ]
-        context = format_docs(docs)
-        messages = RAG_PROMPT.format_messages(context=context, question=user_input)
-
-        with self.langfuse.start_as_current_observation(
-            name=run_name,
-            as_type="generation",
-            input=str(messages),
-            model=OLLAMA_MODEL,
-        ) as gen:
-            llm_response = self.llm.invoke(messages)
-            response = llm_response.content
-            meta = getattr(llm_response, "response_metadata", {}) or {}
-            input_tokens  = meta.get("prompt_eval_count", 0)
-            output_tokens = meta.get("eval_count", 0)
-            gen.update(
-                output=response,
-                usage_details={
-                    "input": input_tokens,
-                    "output": output_tokens,
-                    "total": input_tokens + output_tokens,
-                },
-            )
-            gen.set_trace_io(input=user_input, output=response)
+        response = self.rag_chain.invoke(
+            user_input,
+            config={"callbacks": [handler], "run_name": run_name},
+        )
 
         # Stage 3 — Output Rail
         output_check = self.output_rail.check(response)

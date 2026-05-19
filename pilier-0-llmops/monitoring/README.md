@@ -14,21 +14,21 @@
 
 Pipeline de monitoring complet pour un LLM local (LLaMA3.1:8b via Ollama) :
 
-1. **LangFuse** — stocke les traces LLM (input, output, latence, tokens)
+1. **LangFuse** — stocke les traces LLM (input, output, latence)
 2. **Prometheus Exporter** — interroge l'API LangFuse, calcule les métriques, les expose sur `/metrics`
 3. **Prometheus** — scrape les métriques toutes les 15s
-4. **Grafana** — dashboard avec 5 métriques clés
+4. **Grafana** — dashboard avec 5 métriques clés + alerting
 
 ---
 
 ## Architecture
 
-```text
-LLM Agent (LangChain + LangFuse 4.x)
-      │ traces + token counts
+```
+LLM Agent (LangChain)
+      │ traces
       ▼
 LangFuse API (cloud.langfuse.com)
-      │ REST API /api/public/traces + /api/public/observations
+      │ REST API /api/public/traces
       ▼
 exporter.py (port 8000)  ← prometheus_client
       │ /metrics
@@ -43,7 +43,7 @@ Grafana (port 13000)     ← dashboard 5 métriques
 
 ## Les 5 métriques
 
-| Métrique | Gauge Prometheus | Description |
+| Métrique | Query Prometheus | Description |
 | --- | --- | --- |
 | **Latence P95** | `llm_latency_p95_ms` | 95e percentile du temps de réponse (ms) |
 | **Tokens moyens** | `llm_tokens_total_avg` | Tokens input+output moyens par requête |
@@ -53,80 +53,40 @@ Grafana (port 13000)     ← dashboard 5 métriques
 
 ---
 
-## Phase 1 — Infrastructure (Week 7)
-
-Mise en place du stack de monitoring :
-
-| Composant | Valeur observée | Analyse |
-| --- | --- | --- |
-| Latence P95 | 34 095 ms | Normal pour LLaMA3.1:8b en local |
-| Tokens moyens | No data | Voir fix Phase 2 |
-| Error Rate | 0% | Aucune erreur détectée |
-| Hallucination Rate | 0% | Aucune réponse hors contexte |
-| Throughput | ~0 req/min | Usage de lab |
-
-> Screenshots Phase 1 : [docs/grafanna_Dashboard.png](docs/grafanna_Dashboard.png) · [docs/prometheus_targets.png](docs/prometheus_targets.png) · [docs/exporter_metrique.png](docs/exporter_metrique.png)
-
----
-
-## Phase 2 — Fix tokens + génération de trafic
-
-### Problème identifié : "No data" sur les Tokens
-
-En Phase 1, le panel **Tokens moyens** affichait "No data". Cause : une incompatibilité entre LangFuse v4.x et l'exporter.
-
-**Deux sources du problème :**
-
-### 1. LangFuse v4.x stocke les tokens dans les observations, pas les traces
-
-L'exporter interrogeait `GET /api/public/traces` et lisait `t.get("usage")` :
-
-```python
-usage = t.get("usage") or {}  # → toujours null en v4.x
-```
-
-En LangFuse v4.x, les token counts sont dans les **observations** (générations) :
-
-```json
-GET /api/public/observations?type=GENERATION
-→ { "usage": { "input": 1083, "output": 9, "total": 1092 } }
-```
-
-**Fix :** l'exporter fait maintenant deux appels API — traces pour la latence/erreurs, observations pour les tokens.
-
-### 2. Le pipeline utilisait `CallbackHandler` qui ne trackait pas les tokens
-
-Avec l'ancienne intégration LangChain (`CallbackHandler`), les tokens Ollama n'étaient pas transmis à LangFuse. Le pipeline a été réécrit pour LangFuse 4.x avec tracking manuel :
-
-```python
-# LangFuse 4.x — context manager pour tracker les tokens
-with self.langfuse.start_as_current_observation(
-    name=run_name, as_type="generation", model=OLLAMA_MODEL,
-) as gen:
-    llm_response = self.llm.invoke(messages)
-    meta = llm_response.response_metadata
-    gen.update(usage_details={
-        "input":  meta.get("prompt_eval_count", 0),  # tokens Ollama
-        "output": meta.get("eval_count", 0),
-        "total":  meta.get("prompt_eval_count", 0) + meta.get("eval_count", 0),
-    })
-```
-
-### Résultats Phase 2
-
-Après 15 appels LLM via `load_test.py` :
+## Résultats observés
 
 | Métrique | Valeur | Analyse |
 | --- | --- | --- |
-| Latence P95 | 43 030 ms | Cohérent avec Phase 1 |
-| Tokens input moy. | 652 | Prompt RAG (contexte 4 chunks) |
-| Tokens output moy. | 76 | Réponse LLM |
-| **Tokens total moy.** | **729** | Données réelles — plus de "No data" |
-| Error Rate | 0% | Aucune erreur |
-| Hallucination Rate | 33% | Proxy : réponses "not found in documents" |
-| Throughput | 0.43 req/min | 15 requêtes sur ~35 minutes |
+| Latence P95 | 34095 ms | Normal pour LLaMA3.1:8b en local sur CPU/GPU |
+| Tokens moyens | No data | Voir explication ci-dessous |
+| Error Rate | 0% | Aucune erreur détectée |
+| Hallucination Rate | 0% | Aucune réponse hors contexte |
+| Throughput | ~0 req/min | Usage de lab, pas de production |
 
-> Screenshots Phase 2 : [docs/phase2_dashboard.png](docs/phase2_dashboard.png) · [docs/phase2_traces.png](docs/phase2_traces.png) · [docs/phase2_loadtest.png](docs/phase2_loadtest.png)
+> Screenshots: see [docs/](docs/)
+
+---
+
+## Pourquoi "No data" sur les Tokens dans Grafana ?
+
+Le panneau **Tokens moyens par requête** affiche "No data" pour une raison technique précise :
+
+**LangFuse ne stocke pas les tokens dans le champ `usage` des traces** lorsque le LLM est appelé via l'intégration LangChain (`CallbackHandler`).
+
+Voici pourquoi :
+
+1. **LangChain CallbackHandler** enregistre les traces dans LangFuse via des événements (`on_llm_start`, `on_llm_end`). Les informations de tokens sont transmises uniquement si le LLM les retourne explicitement dans sa réponse.
+
+2. **Ollama (LLaMA local)** retourne les tokens consommés dans sa réponse API, mais le `CallbackHandler` LangFuse ne mappe pas toujours ce champ vers `usage.input` / `usage.output` dans la trace — selon la version du SDK.
+
+3. **Résultat** : l'API REST `/api/public/traces` retourne `"usage": null` ou `"usage": {"input": 0, "output": 0}` pour ces traces → le calcul de moyenne donne 0 ou None → Grafana affiche "No data".
+
+**Solutions en production :**
+- Utiliser `langfuse.generation(usage=Usage(input=n, output=m))` pour logger manuellement les tokens
+- Utiliser un LLM via OpenAI API qui retourne toujours les tokens
+- Interroger les spans individuels (pas les traces) via `/api/public/observations`
+
+Cette limitation est documentée et ne remet pas en cause l'architecture de monitoring — les 4 autres métriques fonctionnent correctement.
 
 ---
 
@@ -137,7 +97,7 @@ cd AngeVirusLab-LLMOps/pilier-0-llmops/monitoring
 cp ../local-llm-agent/.env .
 
 # Terminal 1 — Exporter
-pip install prometheus_client requests numpy
+pip install prometheus_client requests
 python src/exporter.py
 
 # Terminal 2 — Prometheus + Grafana
@@ -145,12 +105,11 @@ docker compose up -d
 ```
 
 **Accès :**
-
-- Prometheus : <http://localhost:19090>
-- Grafana : <http://localhost:13000> (admin / angevirus)
+- Prometheus : http://localhost:19090
+- Grafana : http://localhost:13000 (admin / angevirus)
 
 **Datasource Grafana :** `http://angevirus_prometheus:9090`
 
 ---
 
-Ngagne Demba Dia · Master Sécurité des Systèmes Embarqués · UCAD · Dakar, 2026
+*Ngagne Demba Dia · Master Sécurité des Systèmes Embarqués · UCAD · Dakar, 2026*
