@@ -43,26 +43,12 @@ def fetch_metrics():
         resp.raise_for_status()
         traces = resp.json().get("data", [])
     except Exception as e:
-        print(f"  [ERREUR] LangFuse API traces : {e}")
+        print(f"  [ERREUR] LangFuse API : {e}")
         return
 
     if not traces:
         print("  [INFO] Aucune trace trouvee dans LangFuse.")
         return
-
-    # Token data vit dans les observations (générations), pas dans les traces
-    try:
-        obs_resp = requests.get(
-            f"{LANGFUSE_HOST}/api/public/observations",
-            auth=LANGFUSE_AUTH,
-            params={"limit": 100, "type": "GENERATION"},
-            timeout=10,
-        )
-        obs_resp.raise_for_status()
-        observations = obs_resp.json().get("data", [])
-    except Exception as e:
-        print(f"  [WARN] LangFuse API observations : {e}")
-        observations = []
 
     latencies   = []
     input_tokens  = []
@@ -80,6 +66,18 @@ def fetch_metrics():
         except Exception:
             pass
 
+        # Tokens
+        try:
+            usage = t.get("usage") or {}
+            if usage.get("input"):
+                input_tokens.append(usage["input"])
+            if usage.get("output"):
+                output_tokens.append(usage["output"])
+            if usage.get("total"):
+                total_tokens.append(usage["total"])
+        except Exception:
+            pass
+
         # Erreurs
         try:
             if t.get("level") in ("ERROR", "WARNING"):
@@ -92,19 +90,6 @@ def fetch_metrics():
             output = str(t.get("output") or "").lower()
             if any(kw in output for kw in ["not found", "je ne sais pas", "information not found", "cannot answer"]):
                 halluc += 1
-        except Exception:
-            pass
-
-    # Tokens depuis les observations (générations) — c'est là que LangFuse 4.x les stocke
-    for obs in observations:
-        try:
-            usage = obs.get("usage") or {}
-            if usage.get("input"):
-                input_tokens.append(usage["input"])
-            if usage.get("output"):
-                output_tokens.append(usage["output"])
-            if usage.get("total"):
-                total_tokens.append(usage["total"])
         except Exception:
             pass
 
