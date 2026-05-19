@@ -1,43 +1,40 @@
-# AngeVirusLab — LLMOps
+# AngeVirusLab — LLMSecOps Programme
 
 > **Ngagne Demba Dia · Master Sécurité des Systèmes Embarqués · UCAD · Dakar**
 > AngeVirus · Shadow Bytes Red Team · CCDOC · 2026
 
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://python.org)
-[![Ollama](https://img.shields.io/badge/Ollama-LLaMA3.1:8b-black.svg)](https://ollama.ai)
-[![LangFuse](https://img.shields.io/badge/Observability-LangFuse_4.x-orange.svg)](https://langfuse.com)
-[![OWASP](https://img.shields.io/badge/OWASP-LLM01%20%7C%20LLM02-red.svg)](https://owasp.org/www-project-top-10-for-llm-applications/)
+[![AWS](https://img.shields.io/badge/AWS-Cloud%20Offensif-orange.svg)](https://aws.amazon.com)
+[![OWASP](https://img.shields.io/badge/OWASP-LLM%20Top%2010-red.svg)](https://owasp.org/www-project-top-10-for-llm-applications/)
+[![PortSwigger](https://img.shields.io/badge/PortSwigger-LLM%20Attacks-blueviolet.svg)](https://portswigger.net)
 
 ---
 
-## What is this?
+## Présentation
 
-Pilier 0 d'un programme **LLMSecOps** de 31 semaines — les fondations LLMOps avant l'offensive.
-
-8 semaines couvrant le cycle complet d'un LLM en production :
-déploiement local → prompt engineering → guardrails → RAG → monitoring → pipeline sécurisé intégré.
-
-Tout tourne **100% open source, 0$ tooling** sur GPU local (NVIDIA RTX 3060 + CUDA 12.4 via WSL2).
+Programme **LLMSecOps** de 31 semaines couvrant l'ensemble du spectre de la sécurité des systèmes IA :
+des fondations LLMOps jusqu'à l'offensive Cloud AWS et la sécurité des systèmes embarqués NVIDIA.
 
 > Paper global : [paper.md](paper.md)
 
 ---
 
-## Stack
+## Vue d'ensemble du programme
 
-| Couche | Outils |
-| --- | --- |
-| **LLM Runtime** | Ollama · LLaMA3.1:8b |
-| **Orchestration** | LangChain |
-| **Observabilité** | LangFuse 4.x |
-| **RAG** | ChromaDB · RAGAS |
-| **Guardrails** | InputRail + OutputRail (regex) |
-| **Monitoring** | Prometheus + Grafana |
-| **Infra** | WSL2 · CUDA 12.4 · NVIDIA RTX 3060 Laptop |
+| Pilier | Thème | Semaines | Statut |
+| --- | --- | --- | --- |
+| **Pilier 0** | LLMOps Foundations | 1–8 | ✅ Done |
+| **Pilier 1** | LLM Security Offensive | 9–14 | ✅ Done |
+| **Pilier 2** | Cloud Offensif AWS | 15–22 | ✅ Done |
+| **Pilier 3** | Embarqué NVIDIA | 23–31 | 🔜 À venir |
 
 ---
 
-## Pilier 0 — LLMOps Foundations
+## Pilier 0 — LLMOps Foundations (Semaines 1–8)
+
+Déploiement et sécurisation d'un LLM en production — 100% open source, 0$ tooling, GPU local.
+
+**Stack :** Ollama · LLaMA3.1:8b · LangChain · LangFuse 4.x · ChromaDB · RAGAS · Prometheus · Grafana
 
 | # | Lab | Description | Score |
 | --- | --- | --- | --- |
@@ -48,30 +45,66 @@ Tout tourne **100% open source, 0$ tooling** sur GPU local (NVIDIA RTX 3060 + CU
 | Week 7 | [monitoring](pilier-0-llmops/monitoring/) | Prometheus + Grafana + LangFuse exporter — 5 métriques | ✅ Done |
 | Week 8 | [final-project](pilier-0-llmops/final-project/) | Secure RAG Pipeline : Guardrails + RAG + LangFuse — **8/8** | ✅ Done |
 
----
-
-## Résultats clés
-
-### Final Project — Secure RAG Pipeline (8/8)
+**Résultat clé — Secure RAG Pipeline :**
 
 ```text
 User Input → INPUT RAIL → RAG → LLM → OUTPUT RAIL → LangFuse → Grafana
 ```
 
 - 5 menaces bloquées (injection, jailbreak, malware) — zéro token consommé
-- 3 requêtes légitimes répondues avec sources documentaires
-- Tokens loggués dans LangFuse : ~729 tokens/req (652 input + 76 output)
-- Latence P95 : ~43 secondes (LLaMA3.1:8b local sur GPU)
+- Latence P95 : 43 030 ms · Tokens moy. : 729/req · Error Rate : 0%
 
-### Monitoring — métriques temps réel
+---
 
-| Métrique | Valeur |
-| --- | --- |
-| Latence P95 | 43 030 ms |
-| Tokens total moy. | 729 |
-| Error Rate | 0% |
-| Hallucination Rate | 33% (proxy : réponses "not found") |
-| Throughput | 0.43 req/min |
+## Pilier 1 — LLM Security Offensive (Semaines 9–14)
+
+Labs PortSwigger Web Security Academy — LLM Attacks. Réalisés directement sur la plateforme.
+
+| Lab | Niveau | Vulnérabilité | Statut |
+| --- | --- | --- | --- |
+| Exploitation des API LLM avec autonomie excessive | APPRENTI | OWASP LLM08 — Excessive Agency | ✅ Done |
+| Exploitation des vulnérabilités dans les API LLM | PRATICIEN | OS Command Injection via LLM | ✅ Done |
+| Injection indirecte de prompt | PRATICIEN | Indirect Prompt Injection | ✅ Done |
+| Exploitation d'agents IA — actions destructives | APPRENTI | AI Agent Manipulation | ✅ Done |
+
+**Axes couverts :** Excessive Agency · OS Command Injection · Indirect Prompt Injection · AI Agent Exploitation
+
+---
+
+## Pilier 2 — Cloud Offensif AWS (Semaines 15–22)
+
+Labs offensifs AWS : mauvaises configurations S3, escalade de privilèges IAM, SSRF vers IMDS, exfiltration de données.
+
+### flaws.cloud — Niveaux 1 à 6
+
+> Write-up complet : [pilier-2-cloud-aws/flaws-cloud/](pilier-2-cloud-aws/flaws-cloud/)
+
+| Level | Vulnérabilité | Impact |
+| --- | --- | --- |
+| 1 | Bucket S3 public — aucune auth | Lecture sans credentials |
+| 2 | ACL "authenticated users" = tout compte AWS | Lecture avec credentials quelconques |
+| 3 | `.git/` exposé → credentials dans l'historique | Accès complet au compte flaws.cloud |
+| 4 | EC2 snapshot public → mot de passe en clair | Auth HTTP Basic sur site protégé |
+| 5 | SSRF proxy nginx → IMDS 169.254.169.254 | Credentials IAM temporaires → listing bucket level6 |
+| 6 | SecurityAudit + list_apigateways → Lambda | Invocation Lambda via API Gateway → URL finale |
+
+### CloudGoat — IAM Privilege Escalation by Attachment
+
+> Write-up complet : [pilier-2-cloud-aws/cloudgoat-iam-privesc/](pilier-2-cloud-aws/cloudgoat-iam-privesc/)
+
+**Vecteur :** `iam:PassRole` + `ec2:RunInstances` → swap de rôle instance profile → IMDS → credentials admin temporaires
+
+### CloudGoat — Cloud Breach S3
+
+> Write-up complet : [pilier-2-cloud-aws/cloudgoat-cloud-breach-s3/](pilier-2-cloud-aws/cloudgoat-cloud-breach-s3/)
+
+**Vecteur :** SSRF via Host header → IMDS → `S3FullAccess` → exfiltration données bancaires (SSN + passwords en clair)
+
+---
+
+## Pilier 3 — Embarqué NVIDIA (Semaines 23–31)
+
+> 🔜 À venir — Sécurité des systèmes embarqués NVIDIA : firmware, side-channel, Jetson
 
 ---
 
@@ -83,29 +116,6 @@ RAM : 40 GB DDR4
 GPU : NVIDIA GeForce RTX 3060 Laptop (6 GB VRAM) — CUDA 12.4
 OS  : WSL2 Ubuntu sur Windows 11 Pro
 ```
-
----
-
-## Pilier 1 — LLM Security Offensive
-
-Labs PortSwigger Web Security Academy — LLM Attacks (4 labs couverts) :
-
-| Lab | Niveau | Vulnérabilité |
-| --- | --- | --- |
-| Exploitation des API LLM avec autonomie excessive | APPRENTI | OWASP LLM08 — Excessive Agency |
-| Exploitation des vulnérabilités dans les API LLM | PRATICIEN | OS Command Injection via LLM |
-| Injection indirecte de prompt | PRATICIEN | Indirect Prompt Injection |
-| Exploitation d'agents IA — actions destructives | APPRENTI | AI Agent Manipulation |
-
-Axes couverts : Excessive Agency · OS Command Injection · Indirect Prompt Injection · AI Agent Exploitation
-
----
-
-## Contexte
-
-Ce Pilier 0 est la **fondation défensive** avant l'offensive.
-Comprendre comment un pipeline LLM fonctionne en détail permet d'identifier exactement
-où il est vulnérable — c'est l'objet du **Pilier 1 : LLM Security Offensive**.
 
 ---
 
