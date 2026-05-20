@@ -1,7 +1,7 @@
 # Write-up — CloudGoat : IAM Privilege Escalation by Attachment
 
 > **CloudGoat · Rhino Security Labs · Pilier 2 — Cloud Offensif AWS**
-> Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · 2026
+> Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · 2026
 
 [![AWS IAM](https://img.shields.io/badge/AWS-IAM%20PrivEsc-orange.svg)](https://aws.amazon.com/iam/)
 [![CloudGoat](https://img.shields.io/badge/CloudGoat-iam__privesc__by__attachment-red.svg)](https://github.com/RhinoSecurityLabs/cloudgoat)
@@ -175,4 +175,4 @@ aws iam list-roles --profile mighty   # → tous les rôles
 
 ---
 
-*Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · Dakar, 2026*
+*Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · Dakar, 2026*

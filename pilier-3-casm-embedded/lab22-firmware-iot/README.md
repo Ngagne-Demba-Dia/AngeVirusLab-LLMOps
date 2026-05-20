@@ -1,7 +1,7 @@
 # Write-up — Lab 22 : Firmware IoT Analysis — AngeRouter v2.1
 
 > **Pilier 3 — Embarqué / C-ASM x86-64 · ARM / QEMU**
-> Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · 2026
+> Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · 2026
 
 [![IoT](https://img.shields.io/badge/target-IoT%20Router-purple.svg)]()
 [![binwalk](https://img.shields.io/badge/tool-binwalk-orange.svg)]()
@@ -278,4 +278,4 @@ p.interactive()
 
 ---
 
-*Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · Dakar, 2026*
+*Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · Dakar, 2026*

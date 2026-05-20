@@ -1,7 +1,7 @@
 # Write-up — Lab 14 : Rust Red Team — Reverse Shell
 
 > **Pilier 3 — Embarqué / C-ASM x86-64 · Rust Malware Dev**
-> Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · 2026
+> Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · 2026
 
 [![Rust](https://img.shields.io/badge/lang-Rust-orange.svg)]()
 [![Reverse Shell](https://img.shields.io/badge/technique-reverse%20shell-red.svg)]()
@@ -168,4 +168,4 @@ cargo build --release --target x86_64-unknown-linux-musl
 
 ---
 
-*Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · Dakar, 2026*
+*Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · Dakar, 2026*

@@ -1,7 +1,7 @@
 # Write-up — CloudGoat : Cloud Breach S3
 
 > **CloudGoat · Rhino Security Labs · Pilier 2 — Cloud Offensif AWS**
-> Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · 2026
+> Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · 2026
 
 [![AWS S3](https://img.shields.io/badge/AWS-S3%20FullAccess-orange.svg)](https://aws.amazon.com/s3/)
 [![SSRF](https://img.shields.io/badge/SSRF-Host%20Header-red.svg)]()
@@ -173,4 +173,4 @@ aws sts get-caller-identity --profile breach
 
 ---
 
-*Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · Dakar, 2026*
+*Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · Dakar, 2026*

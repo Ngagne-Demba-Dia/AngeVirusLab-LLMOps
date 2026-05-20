@@ -1,7 +1,7 @@
 # Write-up — Lab 11 : mprotect + ROP — NX Bypass via Shellcode
 
 > **Pilier 3 — Embarqué / C-ASM x86-64**
-> Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · 2026
+> Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · 2026
 
 [![mprotect](https://img.shields.io/badge/technique-mprotect%20ROP-red.svg)]()
 [![NX Bypass](https://img.shields.io/badge/NX-Bypassed-orange.svg)]()
@@ -196,4 +196,4 @@ $ cat /etc/passwd   → lecture fichiers systeme
 
 ---
 
-*Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · Dakar, 2026*
+*Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · Dakar, 2026*

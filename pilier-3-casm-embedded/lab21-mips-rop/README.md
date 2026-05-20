@@ -1,7 +1,7 @@
 # Write-up — Lab 21 : MIPS ret2win + ROP syscall
 
 > **Pilier 3 — Embarqué / C-ASM x86-64 · ARM / QEMU**
-> Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · 2026
+> Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · 2026
 
 [![MIPSEL](https://img.shields.io/badge/arch-MIPSEL-purple.svg)]()
 [![ret2win](https://img.shields.io/badge/technique-ret2win-orange.svg)]()
@@ -170,4 +170,4 @@ payload = b'A' * OFFSET
 
 ---
 
-*Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · Dakar, 2026*
+*Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · Dakar, 2026*

@@ -1,7 +1,7 @@
 # Write-up — Lab 15 : Rust Process Injection via ptrace
 
 > **Pilier 3 — Embarqué / C-ASM x86-64 · Rust Malware Dev**
-> Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · 2026
+> Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · 2026
 
 [![Rust](https://img.shields.io/badge/lang-Rust-orange.svg)]()
 [![ptrace](https://img.shields.io/badge/technique-ptrace%20injection-red.svg)]()
@@ -156,4 +156,4 @@ echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
 
 ---
 
-*Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · Dakar, 2026*
+*Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · Dakar, 2026*

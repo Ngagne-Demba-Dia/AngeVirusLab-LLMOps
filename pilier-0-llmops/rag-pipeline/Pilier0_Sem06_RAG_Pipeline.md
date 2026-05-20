@@ -3,7 +3,7 @@
 
 **Ngagne Demba Dia**
 Master Sécurité des Systèmes Embarqués · UCAD · Dakar
-AngeVirusLab · Shadow Bytes Red Team · 2026
+AngeVirusLab · Master Sécurité des Systèmes Embarqués · 2026
 
 ---
 

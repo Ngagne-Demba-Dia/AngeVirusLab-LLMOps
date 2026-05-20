@@ -1,7 +1,7 @@
 # Write-up — Lab 03 : pwntools — Exploit automatisé
 
 > **Pilier 3 — Embarqué / C-ASM x86-64**
-> Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · 2026
+> Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · 2026
 
 [![pwntools](https://img.shields.io/badge/pwntools-4.x-blue.svg)]()
 [![ret2win](https://img.shields.io/badge/technique-ret2win-orange.svg)]()
@@ -152,4 +152,4 @@ Le SIGSEGV final est attendu — même cause qu'en Lab 02 : `win()` tente de ret
 
 ---
 
-*Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · Dakar, 2026*
+*Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · Dakar, 2026*

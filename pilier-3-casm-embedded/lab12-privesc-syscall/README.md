@@ -1,7 +1,7 @@
 # Write-up — Lab 12 : Privilege Escalation via Syscall Chaining ROP
 
 > **Pilier 3 — Embarqué / C-ASM x86-64**
-> Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · 2026
+> Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · 2026
 
 [![Syscall Chaining](https://img.shields.io/badge/technique-syscall%20chaining-red.svg)]()
 [![setregid](https://img.shields.io/badge/syscall-setregid%20%2B%20execve-orange.svg)]()
@@ -154,4 +154,4 @@ sudo chmod g+s ./target
 
 ---
 
-*Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · Dakar, 2026*
+*Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · Dakar, 2026*

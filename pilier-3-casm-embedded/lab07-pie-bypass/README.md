@@ -1,7 +1,7 @@
 # Write-up — Lab 07 : PIE Bypass — PIE + ASLR
 
 > **Pilier 3 — Embarqué / C-ASM x86-64**
-> Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · 2026
+> Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · 2026
 
 [![PIE Bypass](https://img.shields.io/badge/PIE-Bypassed-red.svg)]()
 [![ASLR Bypass](https://img.shields.io/badge/ASLR-Bypassed-red.svg)]()
@@ -251,4 +251,4 @@ $ cat /proc/version → version kernel WSL2
 
 ---
 
-*Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · Dakar, 2026*
+*Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · Dakar, 2026*

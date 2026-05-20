@@ -1,7 +1,7 @@
 # Write-up — Semaine 30 : Comparatif x86 / ARM / MIPS
 
 > **Pilier 3 — Consolidation finale**
-> Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · 2026
+> Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · 2026
 
 ![x86](https://img.shields.io/badge/arch-x86-blue.svg)
 ![ARM](https://img.shields.io/badge/arch-ARM32-green.svg)
@@ -339,4 +339,4 @@ Les adresses sont fixes → ret2win trivial. En conditions réelles, il faut un 
 
 ---
 
-*Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · Dakar, 2026*
+*Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · Dakar, 2026*

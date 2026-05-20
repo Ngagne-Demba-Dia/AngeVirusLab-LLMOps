@@ -1,7 +1,7 @@
 # Write-up — Lab 09 : Full Combo — NX + Canary + PIE + ASLR
 
 > **Pilier 3 — Embarqué / C-ASM x86-64**
-> Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · 2026
+> Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · 2026
 
 [![Full Combo](https://img.shields.io/badge/Full-NX%2BCanary%2BPIE%2BASLR-red.svg)]()
 [![4 Stages](https://img.shields.io/badge/exploit-4%20stages-orange.svg)]()
@@ -177,4 +177,4 @@ p.interactive()
 
 ---
 
-*Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · Dakar, 2026*
+*Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · Dakar, 2026*

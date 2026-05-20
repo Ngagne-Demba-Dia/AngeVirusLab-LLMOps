@@ -1,7 +1,7 @@
 # Write-up — Lab 05 : ROP Chains — ret2libc / NX Bypass
 
 > **Pilier 3 — Embarqué / C-ASM x86-64**
-> Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · 2026
+> Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · 2026
 
 [![ROP](https://img.shields.io/badge/technique-ROP%20ret2libc-red.svg)]()
 [![NX Bypass](https://img.shields.io/badge/NX-Bypassed-orange.svg)]()
@@ -200,4 +200,4 @@ Chaque lab active une protection supplémentaire — le prochain défi est **PIE
 
 ---
 
-*Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · Dakar, 2026*
+*Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · Dakar, 2026*

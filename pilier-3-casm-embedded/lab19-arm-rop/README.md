@@ -1,7 +1,7 @@
 # Write-up — Lab 19 : ARM ROP Chain — system("/bin/sh")
 
 > **Pilier 3 — Embarqué / C-ASM x86-64 · ARM / QEMU**
-> Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · 2026
+> Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · 2026
 
 [![ARM32](https://img.shields.io/badge/arch-ARM32-red.svg)]()
 [![ROP](https://img.shields.io/badge/technique-ROP%20chain-orange.svg)]()
@@ -139,4 +139,4 @@ p.interactive()
 
 ---
 
-*Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · Dakar, 2026*
+*Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · Dakar, 2026*

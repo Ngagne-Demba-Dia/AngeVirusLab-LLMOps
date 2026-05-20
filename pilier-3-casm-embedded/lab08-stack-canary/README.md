@@ -1,7 +1,7 @@
 # Write-up — Lab 08 : Stack Canary Bypass
 
 > **Pilier 3 — Embarqué / C-ASM x86-64**
-> Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · 2026
+> Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · 2026
 
 [![Canary Bypass](https://img.shields.io/badge/Canary-Bypassed-red.svg)]()
 [![Format String](https://img.shields.io/badge/technique-Format%20String%20Leak-orange.svg)]()
@@ -236,4 +236,4 @@ log.success(output.decode(errors='replace'))
 
 ---
 
-*Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · Dakar, 2026*
+*Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · Dakar, 2026*

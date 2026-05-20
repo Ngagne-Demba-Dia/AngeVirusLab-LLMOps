@@ -1,7 +1,7 @@
 # Write-up — Lab 16 : Rust AMSI Bypass
 
 > **Pilier 3 — Embarqué / C-ASM x86-64 · Rust Malware Dev**
-> Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · 2026
+> Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · 2026
 
 [![Rust](https://img.shields.io/badge/lang-Rust-orange.svg)]()
 [![AMSI](https://img.shields.io/badge/target-AMSI-red.svg)]()
@@ -145,4 +145,4 @@ $b.GetValue($null)
 
 ---
 
-*Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · Dakar, 2026*
+*Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · Dakar, 2026*

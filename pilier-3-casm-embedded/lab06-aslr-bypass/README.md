@@ -1,7 +1,7 @@
 # Write-up — Lab 06 : ASLR Bypass — ret2plt + ret2libc
 
 > **Pilier 3 — Embarqué / C-ASM x86-64**
-> Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · 2026
+> Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · 2026
 
 [![ASLR Bypass](https://img.shields.io/badge/ASLR-Bypassed-red.svg)]()
 [![ret2plt](https://img.shields.io/badge/technique-ret2plt%20%2B%20ret2libc-orange.svg)]()
@@ -221,4 +221,4 @@ $ cat /etc/passwd  → lecture système de fichiers
 
 ---
 
-*Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · Dakar, 2026*
+*Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · Dakar, 2026*

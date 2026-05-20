@@ -1,7 +1,7 @@
 # Write-up — Lab 18 : ARM Buffer Overflow sur QEMU
 
 > **Pilier 3 — Embarqué / C-ASM x86-64 · ARM / QEMU**
-> Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · 2026
+> Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · 2026
 
 [![ARM32](https://img.shields.io/badge/arch-ARM32-red.svg)]()
 [![QEMU](https://img.shields.io/badge/emulation-QEMU%20user-orange.svg)]()
@@ -160,4 +160,4 @@ gdb-multiarch ./target
 
 ---
 
-*Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · Dakar, 2026*
+*Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · Dakar, 2026*

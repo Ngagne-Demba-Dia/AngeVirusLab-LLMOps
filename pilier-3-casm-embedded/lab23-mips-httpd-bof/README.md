@@ -1,7 +1,7 @@
 # Write-up — Lab 23 : MIPS httpd parse_auth() Stack Overflow
 
 > **Pilier 3 — Embarqué / MIPSEL · QEMU**
-> Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · 2026
+> Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · 2026
 
 ![MIPS](https://img.shields.io/badge/arch-MIPSEL-purple.svg)
 ![BoF](https://img.shields.io/badge/vuln-stack%20overflow-red.svg)
@@ -170,4 +170,4 @@ p.close()
 
 ---
 
-*Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · Dakar, 2026*
+*Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · Dakar, 2026*

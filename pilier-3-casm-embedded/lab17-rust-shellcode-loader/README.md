@@ -1,7 +1,7 @@
 # Write-up — Lab 17 : Rust Shellcode Loader (mmap + exec)
 
 > **Pilier 3 — Embarqué / C-ASM x86-64 · Rust Malware Dev**
-> Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · 2026
+> Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · 2026
 
 [![Rust](https://img.shields.io/badge/lang-Rust-orange.svg)]()
 [![mmap](https://img.shields.io/badge/technique-mmap%20RWX-red.svg)]()
@@ -147,4 +147,4 @@ strace ./target/release/loader
 
 ---
 
-*Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · Dakar, 2026*
+*Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · Dakar, 2026*

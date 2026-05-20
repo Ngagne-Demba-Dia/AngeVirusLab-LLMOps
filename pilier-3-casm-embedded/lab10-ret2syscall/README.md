@@ -1,7 +1,7 @@
 # Write-up — Lab 10 : ret2syscall — execve direct via kernel
 
 > **Pilier 3 — Embarqué / C-ASM x86-64**
-> Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · 2026
+> Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · 2026
 
 [![ret2syscall](https://img.shields.io/badge/technique-ret2syscall-red.svg)]()
 [![execve](https://img.shields.io/badge/syscall-execve%2059-orange.svg)]()
@@ -173,4 +173,4 @@ p.interactive()
 
 ---
 
-*Ngagne Demba Dia · AngeVirusLab · Shadow Bytes Red Team · UCAD · Dakar, 2026*
+*Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · Dakar, 2026*
