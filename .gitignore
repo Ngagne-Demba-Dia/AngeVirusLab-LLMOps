@@ -3,3 +3,5 @@
 __pycache__/
 *.pyc
 .env
+AWS_Lab/rockyou.txt
+AWS_Lab/awscliv2.zip
