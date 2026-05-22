@@ -1,6 +1,6 @@
 # Write-up — Lab 07 : PIE Bypass — PIE + ASLR
 
-> **Pilier 3 — Embarqué / C-ASM x86-64**
+> **Embedded Security — C-ASM x86-64**
 > Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · 2026
 
 [![PIE Bypass](https://img.shields.io/badge/PIE-Bypassed-red.svg)]()

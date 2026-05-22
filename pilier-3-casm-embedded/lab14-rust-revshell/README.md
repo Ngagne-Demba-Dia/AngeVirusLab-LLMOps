@@ -1,6 +1,6 @@
 # Write-up — Lab 14 : Rust Red Team — Reverse Shell
 
-> **Pilier 3 — Embarqué / C-ASM x86-64 · Rust Malware Dev**
+> **Embedded Security — Rust Malware Dev**
 > Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · 2026
 
 [![Rust](https://img.shields.io/badge/lang-Rust-orange.svg)]()

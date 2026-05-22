@@ -1,6 +1,6 @@
 # Write-up — Lab 13 : Reverse Engineering avec Ghidra (Crackme XOR)
 
-> **Pilier 3 — Embarqué / C-ASM x86-64**
+> **Embedded Security — C-ASM x86-64**
 > Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · 2026
 
 [![Ghidra](https://img.shields.io/badge/tool-Ghidra-red.svg)]()

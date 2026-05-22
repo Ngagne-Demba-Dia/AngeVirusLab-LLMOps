@@ -1,6 +1,6 @@
 # Write-up — Lab 06 : ASLR Bypass — ret2plt + ret2libc
 
-> **Pilier 3 — Embarqué / C-ASM x86-64**
+> **Embedded Security — C-ASM x86-64**
 > Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · 2026
 
 [![ASLR Bypass](https://img.shields.io/badge/ASLR-Bypassed-red.svg)]()

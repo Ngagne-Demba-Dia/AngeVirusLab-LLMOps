@@ -1,6 +1,6 @@
 # Write-up — Lab 03 : pwntools — Exploit automatisé
 
-> **Pilier 3 — Embarqué / C-ASM x86-64**
+> **Embedded Security — C-ASM x86-64**
 > Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · 2026
 
 [![pwntools](https://img.shields.io/badge/pwntools-4.x-blue.svg)]()

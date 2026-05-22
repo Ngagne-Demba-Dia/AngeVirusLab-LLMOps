@@ -1,6 +1,6 @@
 # Write-up — Lab 21 : MIPS ret2win + ROP syscall
 
-> **Pilier 3 — Embarqué / C-ASM x86-64 · ARM / QEMU**
+> **Embedded Security — ARM / QEMU**
 > Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · 2026
 
 [![MIPSEL](https://img.shields.io/badge/arch-MIPSEL-purple.svg)]()

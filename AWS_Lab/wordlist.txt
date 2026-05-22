@@ -1,0 +1,8 @@
+flaws
+password
+admin
+123456
+secret
+flaws.cloud
+backup
+aws

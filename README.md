@@ -12,7 +12,7 @@
 
 ## Présentation
 
-Programme de spécialisation **LLMSecOps** de 31 semaines couvrant l'ensemble du spectre de la sécurité des systèmes IA et embarqués : fondations LLMOps, attaque offensive des LLMs, exploitation Cloud AWS, et sécurité des systèmes embarqués (x86 / ARM / MIPS / Firmware IoT).
+Programme de spécialisation **LLMSecOps** couvrant l'ensemble du spectre de la sécurité des systèmes IA et embarqués : fondations LLMOps, attaque offensive des LLMs, exploitation Cloud AWS, et sécurité des systèmes embarqués (x86 / ARM / MIPS / Firmware IoT). Réalisé en 4 mois.
 
 > Paper technique global : [paper.md](paper.md)
 
@@ -20,17 +20,17 @@ Programme de spécialisation **LLMSecOps** de 31 semaines couvrant l'ensemble du
 
 ## Statut global
 
-| Pilier | Thème | Semaines | Statut |
-|---|---|---|---|
-| **Pilier 0** | LLMOps Foundations | 1–8 | ✅ Terminé |
-| **Pilier 1** | LLM Security Offensive | 9–14 | ✅ Terminé |
-| **Pilier 2** | Cloud Offensif AWS + ARM | 15–22 | ✅ Terminé |
-| **Pilier 3** | Embarqué MIPS + Firmware IoT | 23–31 | ✅ Terminé |
-| **Projet final** | AI-Assisted Embedded Attack Framework | — | 🔜 En cours |
+| Domaine | Thème | Statut |
+|---|---|---|
+| **LLMOps** | LLMOps Foundations | ✅ Terminé |
+| **LLM Security** | LLM Security Offensive | ✅ Terminé |
+| **Cloud Pentest** | Cloud Offensif AWS + ARM | ✅ Terminé |
+| **Embedded Security** | Embarqué MIPS + Firmware IoT | ✅ Terminé |
+| **Projet final** | AI-Assisted Embedded Attack Framework | ✅ Terminé |
 
 ---
 
-## Pilier 0 — LLMOps Foundations (Semaines 1–8)
+## LLMOps Foundations
 
 Déploiement et sécurisation d'un LLM en production — 100% open source, 0$ tooling.
 
@@ -38,12 +38,12 @@ Déploiement et sécurisation d'un LLM en production — 100% open source, 0$ to
 
 | Lab | Description | Statut |
 |---|---|---|
-| [local-llm-agent](pilier-0-llmops/local-llm-agent/) | Agent LLM 3 outils + tracing LangFuse complet | ✅ |
-| [prompt-tracker](pilier-0-llmops/prompt-tracker/) | Versioning prompts + A/B testing + détection hallucination | ✅ |
-| [llm-guardrails](pilier-0-llmops/llm-guardrails/) | InputRail + OutputRail — anti-injection (OWASP LLM01/02) | ✅ |
-| [rag-pipeline](pilier-0-llmops/rag-pipeline/) | RAG complet : ChromaDB · 3387 chunks · RAGAS eval | ✅ |
-| [monitoring](pilier-0-llmops/monitoring/) | Prometheus + Grafana + LangFuse — 5 métriques clés | ✅ |
-| [final-project](pilier-0-llmops/final-project/) | Secure RAG Pipeline : Guardrails + RAG + LangFuse 8/8 | ✅ |
+| [local-llm-agent](llmops/local-llm-agent/) | Agent LLM 3 outils + tracing LangFuse complet | ✅ |
+| [prompt-tracker](llmops/prompt-tracker/) | Versioning prompts + A/B testing + détection hallucination | ✅ |
+| [llm-guardrails](llmops/llm-guardrails/) | InputRail + OutputRail — anti-injection (OWASP LLM01/02) | ✅ |
+| [rag-pipeline](llmops/rag-pipeline/) | RAG complet : ChromaDB · 3387 chunks · RAGAS eval | ✅ |
+| [monitoring](llmops/monitoring/) | Prometheus + Grafana + LangFuse — 5 métriques clés | ✅ |
+| [final-project](llmops/final-project/) | Secure RAG Pipeline : Guardrails + RAG + LangFuse 8/8 | ✅ |
 
 **Architecture finale :**
 ```
@@ -53,7 +53,7 @@ User Input → INPUT RAIL → RAG → LLM → OUTPUT RAIL → LangFuse → Grafa
 
 ---
 
-## Pilier 1 — LLM Security Offensive (Semaines 9–14)
+## LLM Security Offensive
 
 Labs PortSwigger Web Security Academy — OWASP LLM Top 10.
 
@@ -66,15 +66,15 @@ Labs PortSwigger Web Security Academy — OWASP LLM Top 10.
 
 ---
 
-## Pilier 2 — Cloud Offensif AWS + ARM (Semaines 15–22)
+## Cloud Offensif AWS + ARM
 
 ### Cloud AWS
 
 | Lab | Technique | Statut |
 |---|---|---|
-| [flaws.cloud niveaux 1–6](pilier-2-cloud-aws/flaws-cloud/) | S3 public · ACL · git leak · snapshot · SSRF IMDS · Lambda | ✅ |
-| [CloudGoat IAM privesc](pilier-2-cloud-aws/cloudgoat-iam-privesc/) | PassRole + RunInstances → IMDS → credentials admin | ✅ |
-| [CloudGoat cloud_breach_s3](pilier-2-cloud-aws/cloudgoat-cloud-breach-s3/) | SSRF Host header → IMDS → S3FullAccess → exfiltration | ✅ |
+| [flaws.cloud niveaux 1–6](cloud-pentest/flaws-cloud/) | S3 public · ACL · git leak · snapshot · SSRF IMDS · Lambda | ✅ |
+| [CloudGoat IAM privesc](cloud-pentest/cloudgoat-iam-privesc/) | PassRole + RunInstances → IMDS → credentials admin | ✅ |
+| [CloudGoat cloud_breach_s3](cloud-pentest/cloudgoat-cloud-breach-s3/) | SSRF Host header → IMDS → S3FullAccess → exfiltration | ✅ |
 
 ### C/ASM — ARM32
 
@@ -86,7 +86,7 @@ Labs PortSwigger Web Security Academy — OWASP LLM Top 10.
 
 ---
 
-## Pilier 3 — Embarqué MIPS + Firmware IoT (Semaines 23–31)
+## Embarqué MIPS + Firmware IoT
 
 ### C/ASM — x86 (Labs 01–13)
 
@@ -127,20 +127,20 @@ Labs PortSwigger Web Security Academy — OWASP LLM Top 10.
 
 | Document | Contenu | Statut |
 |---|---|---|
-| [Comparatif x86/ARM/MIPS](pilier-3-casm-embedded/sem30-comparatif-architectures/) | Registres · ABI · OFFSET · quirks · 23 labs synthétisés | ✅ |
+| [Comparatif x86/ARM/MIPS](pilier-3-casm-embedded/comparatif-architectures/) | Registres · ABI · OFFSET · quirks · 23 labs synthétisés | ✅ |
 
 ---
 
 ## Projet final — AI-Assisted Embedded Attack Framework
 
-Projet signature qui ferme la boucle sur les 4 piliers :
+Projet signature intégrant les 4 domaines :
 
 | Module | Description | Source |
 |---|---|---|
 | Module 1 — Firmware extraction | binwalk · Ghidra · angr | Lab22 |
 | Module 2 — Architecture detection | ARM / MIPS / x86 auto-detect | Labs 18–23 |
 | Module 3 — Exploit analysis | BoF · ROP · syscall chain | Labs 01–23 |
-| Module 4 — LLM-assisted explanation | RAG local + LangFuse + guardrails | Pilier 0 |
+| Module 4 — LLM-assisted explanation | RAG local + LangFuse + guardrails | LLMOps |
 
 ---
 

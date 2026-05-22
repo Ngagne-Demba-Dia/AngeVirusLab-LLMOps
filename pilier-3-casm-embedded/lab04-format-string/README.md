@@ -1,6 +1,6 @@
 # Write-up — Lab 04 : Format String — Écriture en mémoire
 
-> **Pilier 3 — Embarqué / C-ASM x86-64**
+> **Embedded Security — C-ASM x86-64**
 > Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · 2026
 
 [![Format String](https://img.shields.io/badge/vuln-Format%20String-red.svg)]()

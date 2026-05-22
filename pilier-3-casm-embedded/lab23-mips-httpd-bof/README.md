@@ -1,6 +1,6 @@
 # Write-up — Lab 23 : MIPS httpd parse_auth() Stack Overflow
 
-> **Pilier 3 — Embarqué / MIPSEL · QEMU**
+> **Embedded Security — MIPSEL · QEMU**
 > Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · 2026
 
 ![MIPS](https://img.shields.io/badge/arch-MIPSEL-purple.svg)
@@ -143,7 +143,7 @@ p.close()
 
 ---
 
-## 8. Progression Pilier 3
+## 8. Progression
 
 | Lab | Technique | Arch | Difficulté |
 |---|---|---|---|

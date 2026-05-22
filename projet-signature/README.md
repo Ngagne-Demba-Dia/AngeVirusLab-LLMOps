@@ -16,12 +16,12 @@ Framework d'analyse de firmware IoT assisté par LLM. Il automatise en 4 minutes
 ce qui demande 2 heures d'analyse manuelle : extraction, détection d'architecture,
 identification de vulnérabilités, et explication en langage naturel.
 
-Ce projet ferme la boucle entre les 4 piliers du programme LLMSecOps :
+Ce projet ferme la boucle entre les 4 domaines du programme LLMSecOps :
 
 ```
-Pilier 0 (LLMOps/RAG/LangFuse) ──► Module 4 : LLM-assisted explanation
-Pilier 2 (ARM exploitation)    ──► Module 2 : Architecture detection
-Pilier 3 (MIPS/Firmware IoT)   ──► Module 1 : Firmware extraction
+LLMOps (LLMOps/RAG/LangFuse) ──► Module 4 : LLM-assisted explanation
+Cloud Pentest (ARM exploitation)    ──► Module 2 : Architecture detection
+Embedded Security (MIPS/Firmware IoT)   ──► Module 1 : Firmware extraction
                                     Module 3 : Vulnerability analysis
 ```
 
@@ -175,7 +175,7 @@ python main.py --firmware firmware.bin --skip-llm --json > rapport.json
 |---|---|
 | Lab22 — Firmware IoT | Firmware de test + pipeline d'extraction |
 | Lab23 — httpd BoF | Démontre l'exploitabilité des findings du Module 3 |
-| Pilier 0 — RAG/LangFuse | Architecture Module 4 (LLM + tracing) |
+| LLMOps — RAG/LangFuse | Architecture Module 4 (LLM + tracing) |
 | Labs 18-21 — ARM/MIPS | Signatures architecture détectées par Module 2 |
 
 ---

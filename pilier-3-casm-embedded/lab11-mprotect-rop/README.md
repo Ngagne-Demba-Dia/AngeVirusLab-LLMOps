@@ -1,6 +1,6 @@
 # Write-up — Lab 11 : mprotect + ROP — NX Bypass via Shellcode
 
-> **Pilier 3 — Embarqué / C-ASM x86-64**
+> **Embedded Security — C-ASM x86-64**
 > Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · 2026
 
 [![mprotect](https://img.shields.io/badge/technique-mprotect%20ROP-red.svg)]()

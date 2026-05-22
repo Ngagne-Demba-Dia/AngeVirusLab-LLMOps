@@ -1,6 +1,6 @@
 # Write-up — Lab 15 : Rust Process Injection via ptrace
 
-> **Pilier 3 — Embarqué / C-ASM x86-64 · Rust Malware Dev**
+> **Embedded Security — Rust Malware Dev**
 > Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · 2026
 
 [![Rust](https://img.shields.io/badge/lang-Rust-orange.svg)]()

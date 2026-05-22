@@ -8,7 +8,7 @@ AngeVirusLab · CCDOC
 
 ## Résumé
 
-Ce document présente un programme de spécialisation de 31 semaines couvrant quatre domaines de la sécurité offensive : les pipelines LLMOps et leur instrumentation, l'exploitation offensive des LLMs (OWASP Top 10), l'attaque des infrastructures Cloud AWS, et l'exploitation des systèmes embarqués sur architectures x86, ARM32 et MIPSEL. L'ensemble des 23 labs pratiques réalisés est documenté avec les techniques, les erreurs rencontrées et les leçons retenues.
+Ce document présente un programme de spécialisation de 4 mois couvrant quatre domaines de la sécurité offensive : les pipelines LLMOps et leur instrumentation, l'exploitation offensive des LLMs (OWASP Top 10), l'attaque des infrastructures Cloud AWS, et l'exploitation des systèmes embarqués sur architectures x86, ARM32 et MIPSEL. L'ensemble des 23 labs pratiques réalisés est documenté avec les techniques, les erreurs rencontrées et les leçons retenues.
 
 ---
 
@@ -19,17 +19,17 @@ La convergence entre les Large Language Models (LLMs) et les systèmes embarqué
 Ce programme adopte une approche offensive en quatre piliers :
 
 ```text
-Pilier 0 : Construire un pipeline LLMOps sécurisé
-Pilier 1 : Attaquer les LLMs (prompt injection, excessive agency)
-Pilier 2 : Exploiter les mauvaises configurations Cloud AWS
-Pilier 3 : Analyser et exploiter les systèmes embarqués (x86 → ARM → MIPS → Firmware)
+LLMOps        : Construire un pipeline LLMOps sécurisé
+LLM Security  : Attaquer les LLMs (prompt injection, excessive agency)
+Cloud Pentest : Exploiter les mauvaises configurations Cloud AWS
+Embedded      : Analyser et exploiter les systèmes embarqués (x86 → ARM → MIPS → Firmware)
 ```
 
-Chaque pilier alimente le suivant : comprendre comment construire un LLM en production (Pilier 0) permet de mieux l'attaquer (Pilier 1). Comprendre les surfaces IAM cloud (Pilier 2) permet de voir comment un modèle Bedrock hérite de ces mauvaises configurations. Maîtriser l'exploitation embarquée (Pilier 3) permet de concevoir un framework d'analyse assisté par LLM (projet final).
+Chaque domaine alimente le suivant : comprendre comment construire un LLM en production permet de mieux l'attaquer. Comprendre les surfaces IAM cloud permet de voir comment un modèle Bedrock hérite de ces mauvaises configurations. Maîtriser l'exploitation embarquée permet de concevoir un framework d'analyse assisté par LLM (projet final).
 
 ---
 
-## 2. Pilier 0 — LLMOps Foundations
+## 2. LLMOps Foundations
 
 ### 2.1 Objectif
 
@@ -72,7 +72,7 @@ User Input
 
 ---
 
-## 3. Pilier 1 — LLM Security Offensive
+## 3. LLM Security Offensive
 
 ### 3.1 OWASP LLM Top 10 — Labs PortSwigger
 
@@ -89,7 +89,7 @@ Un LLM avec des outils (function calling) hérite de tous les privilèges de ces
 
 ---
 
-## 4. Pilier 2 — Cloud Offensif AWS
+## 4. Cloud Offensif AWS
 
 ### 4.1 Surface d'attaque AWS
 
@@ -125,7 +125,7 @@ Les modèles Bedrock et SageMaker héritent directement des mauvaises configurat
 
 ---
 
-## 5. Pilier 3 — Sécurité des Systèmes Embarqués
+## 5. Sécurité des Systèmes Embarqués
 
 ### 5.1 Progression architecturale
 
@@ -247,7 +247,7 @@ Résultat : `OFFSET=68`, `$ra` → `win()`, flag obtenu via pwntools + qemu-mips
 
 ### 7.1 Concept
 
-Un framework qui combine l'analyse statique de firmware, la détection d'architecture, l'identification automatique de vulnérabilités, et l'explication assistée par LLM. Il ferme la boucle entre les 4 piliers.
+Un framework qui combine l'analyse statique de firmware, la détection d'architecture, l'identification automatique de vulnérabilités, et l'explication assistée par LLM. Il ferme la boucle entre les 4 domaines.
 
 ### 7.2 Architecture
 

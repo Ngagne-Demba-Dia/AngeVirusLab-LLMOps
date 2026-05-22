@@ -1,6 +1,6 @@
 # Write-up — Lab 18 : ARM Buffer Overflow sur QEMU
 
-> **Pilier 3 — Embarqué / C-ASM x86-64 · ARM / QEMU**
+> **Embedded Security — ARM / QEMU**
 > Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · 2026
 
 [![ARM32](https://img.shields.io/badge/arch-ARM32-red.svg)]()

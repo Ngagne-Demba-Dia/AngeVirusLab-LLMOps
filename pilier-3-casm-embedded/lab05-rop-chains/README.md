@@ -1,6 +1,6 @@
 # Write-up — Lab 05 : ROP Chains — ret2libc / NX Bypass
 
-> **Pilier 3 — Embarqué / C-ASM x86-64**
+> **Embedded Security — C-ASM x86-64**
 > Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · 2026
 
 [![ROP](https://img.shields.io/badge/technique-ROP%20ret2libc-red.svg)]()

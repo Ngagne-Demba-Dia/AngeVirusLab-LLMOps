@@ -1,6 +1,6 @@
 # Write-up — Lab 22 : Firmware IoT Analysis — AngeRouter v2.1
 
-> **Pilier 3 — Embarqué / C-ASM x86-64 · ARM / QEMU**
+> **Embedded Security — ARM / QEMU**
 > Ngagne Demba Dia · AngeVirusLab · Master Sécurité des Systèmes Embarqués · UCAD · 2026
 
 [![IoT](https://img.shields.io/badge/target-IoT%20Router-purple.svg)]()
@@ -158,7 +158,7 @@ cat usr/share/backdoor.sh
 
 ---
 
-## 7. Progression Pilier 3 complète
+## 7. Progression Embedded Security
 
 | Lab | Technique | Arch | Difficulté |
 | --- | --- | --- | --- |
