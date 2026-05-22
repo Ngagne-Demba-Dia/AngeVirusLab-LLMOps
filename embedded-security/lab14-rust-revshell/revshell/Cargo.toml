@@ -1,0 +1,8 @@
+[package]
+name = "revshell"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "revshell"
+path = "src/main.rs"
