@@ -5,3 +5,4 @@ firmware-mod-kit/
 sasquatch/
 squashfs-root/
 rootfs.squashfs
+_firmware.bin-*.extracted/

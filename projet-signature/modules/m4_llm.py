@@ -9,10 +9,14 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 
 try:
-    from langfuse.callback import CallbackHandler as LangFuseHandler
+    from langfuse import observe
     _LANGFUSE_OK = True
 except ImportError:
     _LANGFUSE_OK = False
+    def observe(*args, **kwargs):
+        def decorator(func):
+            return func
+        return decorator
 
 SYSTEM_PROMPT = (
     "Tu es un expert en sécurité des systèmes embarqués et IoT, spécialisé dans l'analyse de firmware. "
@@ -63,14 +67,8 @@ def _format_list(items: list, key: str | None = None, limit: int = 10) -> str:
     return "\n".join(lines)
 
 
+@observe(name="firmware-analysis")
 def explain_with_llm(arch_result: dict, vuln_report: dict) -> str:
-    callbacks = []
-    if _LANGFUSE_OK and os.getenv("LANGFUSE_SECRET_KEY"):
-        try:
-            callbacks = [LangFuseHandler()]
-        except Exception:
-            pass
-
     creds_formatted = "\n".join(
         f"- {c['file']}: {c['match']}"
         for c in vuln_report.get("credentials", [])[:10]
@@ -104,12 +102,10 @@ def explain_with_llm(arch_result: dict, vuln_report: dict) -> str:
                 "hidden_files": _format_list(vuln_report.get("hidden_files", [])),
                 "dangerous_functions": funcs_formatted,
                 "backdoors": backdoors_formatted,
-            },
-            config={"callbacks": callbacks} if callbacks else {},
+            }
         )
 
     except Exception as e:
-        # Fallback sans LLM
         lines = [
             f"[Ollama non disponible : {e}]",
             "",

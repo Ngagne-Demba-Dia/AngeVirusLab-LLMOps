@@ -1,1 +1,0 @@
-/mnt/c/Users/ngdia/Downloads/programme_angevirus/AngeVirusLab-LLMOps/pilier-3-casm-embedded/lab14-rust-revshell/revshell/target/release/revshell: /mnt/c/Users/ngdia/Downloads/programme_angevirus/AngeVirusLab-LLMOps/pilier-3-casm-embedded/lab14-rust-revshell/revshell/src/main.rs

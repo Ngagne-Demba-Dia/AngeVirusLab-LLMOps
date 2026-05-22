@@ -1,1 +1,0 @@
-/mnt/c/Users/ngdia/Downloads/programme_angevirus/AngeVirusLab-LLMOps/pilier-3-casm-embedded/lab16-rust-amsi-bypass/amsi_bypass/target/x86_64-pc-windows-gnu/release/amsi_bypass.exe: /mnt/c/Users/ngdia/Downloads/programme_angevirus/AngeVirusLab-LLMOps/pilier-3-casm-embedded/lab16-rust-amsi-bypass/amsi_bypass/src/main.rs
